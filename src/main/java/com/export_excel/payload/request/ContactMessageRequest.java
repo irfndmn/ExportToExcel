@@ -33,9 +33,10 @@ public class ContactMessageRequest implements Serializable {
     private String subject;
 
     @NotNull(message = "please enter message")
-    @Size(min = 4, max=50, message = "Your message should be at least {min} characters")
+    @Size(min = 4, max=80, message = "Your message should be at least {min} characters")
     @Pattern(regexp = "\\A(?!\\s*\\Z).+",message = "Your message must consist of the character .")
     private String message;
 
 
 }
+
