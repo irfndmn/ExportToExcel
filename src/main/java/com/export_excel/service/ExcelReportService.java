@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 @Service
@@ -31,6 +30,7 @@ public class ExcelReportService {
         row.createCell(5).setCellValue("SUBJECT");
         List<ContactMessage> contactMessages=contactMessageService.getAllMessages();
 
+
         int rowIndex=1;
         for(ContactMessage message:contactMessages){
             Row rowData=sheet.createRow(rowIndex);
@@ -41,6 +41,7 @@ public class ExcelReportService {
             rowData.createCell(4).setCellValue(message.getMessage());
             rowData.createCell(5).setCellValue(message.getSubject());
             rowIndex++;
+
         }
 
         ServletOutputStream ops=response.getOutputStream();

@@ -18,9 +18,11 @@ import java.time.LocalDate;
 public class ContactMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "messageId")
     private Long messageId;
 
     @NotNull
+    @Column(name = "messageName")
     private String messageName;
 
     @NotNull
