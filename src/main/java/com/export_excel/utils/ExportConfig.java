@@ -25,7 +25,13 @@ public class ExportConfig {
         this.cellExportConfigList = generateCellConfigList(dataClazz);
     }
 
-    private static List<CellConfig> generateCellConfigList(Class<?> clazz) {
+    public static ExportConfig createExportConfig(Class<?> dataClazz){
+        return new ExportConfig(dataClazz);
+    }
+
+
+
+    public static List<CellConfig> generateCellConfigList(Class<?> clazz) {
         List<CellConfig> cellConfigList = new ArrayList<>();
         Field[] fields = clazz.getDeclaredFields();
 
