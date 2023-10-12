@@ -24,7 +24,6 @@ public class ExcelUtils {
 
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
 
-
         // Get file -> not found -> create file
         File file;
 
@@ -87,13 +86,13 @@ public class ExcelUtils {
         // insert field name as title to excel
 
         Class<?> clazz = theDataListForExport.get(0).getClass();
-        ExportConfig newExportConfig =ExportConfig.createExportConfig(clazz);
+        ExportConfig newExportConfig = ExportConfig.createExportConfig(clazz);
 
         insertFieldNameAsTitleToWorkbook(newExportConfig.getCellExportConfigList(), newSheet, titleCellStyle);
 
 
         // insert data of the field to excel
-        insertDataToWorkbook(xssfWorkbook,newExportConfig,theDataListForExport,dataCellStyle);
+        insertDataToWorkbook(xssfWorkbook, newExportConfig, theDataListForExport, dataCellStyle);
 
 
         //return
@@ -114,16 +113,12 @@ public class ExcelUtils {
                                                  XSSFCellStyle dataCellStyle) {
 
         int startRowIndex = exportConfig.getStartRow();
-
         int sheetIndex = exportConfig.getSheetIndex();
-
         Class clazz = exportConfig.getDataClazz();
-
         List<CellConfig> cellConfigs = exportConfig.getCellExportConfigList();
 
         Sheet sheet = workbook.getSheetAt(sheetIndex);
         int currentRowIndex = startRowIndex;
-
 
         for (T data : dataList) {
 
@@ -132,7 +127,6 @@ public class ExcelUtils {
             if (ObjectUtils.isEmpty(currentRow)) {
                 currentRow = sheet.createRow(currentRowIndex);
             }
-
             // insert data to row
             insertDataToCell(data, currentRow, cellConfigs, clazz, sheet, dataCellStyle);
 
@@ -148,7 +142,6 @@ public class ExcelUtils {
 
         // title -> first row of  excel
         int currentRow = sheet.getTopRow();
-
         // create row
         Row row = sheet.createRow(currentRow);
         int i = 0;
@@ -172,7 +165,6 @@ public class ExcelUtils {
                                              XSSFCellStyle dataStyle) {
 
         for (CellConfig cellConfig : cellConfigs) {
-
             Cell currentCell = currentRow.getCell(cellConfig.getColumnIndex());
             if (ObjectUtils.isEmpty(currentCell)) {
                 currentCell = currentRow.createCell(cellConfig.getColumnIndex());
@@ -181,7 +173,6 @@ public class ExcelUtils {
             // get data for cell
 
             String cellValue = getCellValue(data, cellConfig, clazz);
-
 
             // set data
 
@@ -197,21 +188,16 @@ public class ExcelUtils {
     private static <T> String getCellValue(T data, CellConfig cellConfig, Class clazz) {
 
         String fieldName = cellConfig.getFieldName();
-
         try {
-
             Field field = getDeclaredField(clazz, fieldName);
-
             if (!ObjectUtils.isEmpty(field)) {
-
                 field.setAccessible(true);
-
                 return !ObjectUtils.isEmpty(field.get(data)) ? field.get(data).toString() : "";
             }
+
             return "";
 
         } catch (Exception e) {
-
             log.info("" + e);
             return "";
         }
@@ -226,17 +212,12 @@ public class ExcelUtils {
 
         do {
             try {
-
                 Field field = clazz.getDeclaredField(fieldName);
                 field.setAccessible(true);
                 return field;
-
             } catch (Exception e) {
-
                 log.info("" + e);
-
             }
-
         } while ((clazz = clazz.getSuperclass()) != null);  // if super class not null we check to super class too for field.
 
         return null;
