@@ -44,7 +44,6 @@ public class ExcelReportService {
         row.createCell(5).setCellValue("SUBJECT");
         List<ContactMessage> contactMessages=contactMessageService.getAllMessages();
 
-
         int rowIndex=1;
         for(ContactMessage message:contactMessages){
             Row rowData=sheet.createRow(rowIndex);
@@ -70,15 +69,12 @@ public class ExcelReportService {
         List<ContactMessage> contactMessageList = contactMessageService.getAllMessages();
 
         if(!CollectionUtils.isEmpty(contactMessageList)){
-
                 String fileName = "Contact_Message_Export"+".xlsx";
                 ByteArrayInputStream in = ExcelUtils.exportContactMessage(contactMessageList,fileName);
                 InputStreamResource inputStreamResource = new InputStreamResource(in);
-
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                     "attachment; filename="+ URLEncoder.encode(fileName, StandardCharsets.UTF_8)).
                     contentType(MediaType.parseMediaType("application/vnd.ms-excel; charset=UTF-8")).body(inputStreamResource);
-
         }else {
             throw new Exception("No Data");
         }

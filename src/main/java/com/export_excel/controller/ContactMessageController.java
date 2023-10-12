@@ -19,14 +19,12 @@ public class ContactMessageController {
 
     private final ContactMessageService contactMessageService;
 
-
     @PostMapping("/save")
     public ResponseMessage<ContactMessageResponse> save(@Valid
                                                         @RequestBody ContactMessageRequest contactMessageRequest) {
         return contactMessageService.save(contactMessageRequest);
 
     }
-
 
 
 
@@ -39,7 +37,6 @@ public class ContactMessageController {
     ) {
         return contactMessageService.getAll(page, size, sort, type);
     }
-
 
 
     @GetMapping("/searchByEmail")
@@ -55,8 +52,6 @@ public class ContactMessageController {
     }
 
 
-
-
     @GetMapping("/searchBySubject")
     public Page<ContactMessageResponse> searchBySubject(
             @RequestParam(value = "subject") String subject,
@@ -67,6 +62,4 @@ public class ContactMessageController {
     ) {
         return contactMessageService.searchBySubject(subject, page, size, sort, type);
     }
-
-
 }

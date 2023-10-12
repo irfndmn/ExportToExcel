@@ -14,15 +14,10 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 public class ContactMessageResponse implements Serializable {
 
-    private String messageName; // contactMessageName
-
+    private String messageName;
     private String email;
-
     private String subject;
-
     private String message;
-
     private LocalDate date;
-
 
 }

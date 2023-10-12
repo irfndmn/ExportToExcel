@@ -39,7 +39,6 @@ public class ExportConfig {
             String fieldName = fields[i].getName();
             cellConfigList.add(new CellConfig(i, fieldName));
         }
-
         return cellConfigList;
     }
 
@@ -59,9 +58,5 @@ public class ExportConfig {
 
         // Create a default ExportConfig instance
         contactMessageExport = new ExportConfig(defaultSheetIndex,defaultStartRowIndex,defaultDataClazz,defaultCellConfigList);
-
-
     }
-
-
 }

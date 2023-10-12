@@ -42,10 +42,7 @@ public class ContactMessageService {
                 httpStatus(HttpStatus.CREATED).
                 object(createResponse(savedData)).
                 build();
-
     }
-
-
 
     private ContactMessage createContactMessage(ContactMessageRequest contactMessageRequest){
 
@@ -71,18 +68,13 @@ public class ContactMessageService {
     public Page<ContactMessageResponse> getAll(int page, int size, String sort, String type) {
 
         Pageable pageable= createPageableObject(page, size, sort, type);
-
         return contactMessageRepository.findAll(pageable).map(this::createResponse);
 
     }
 
-
-
-
     public Page<ContactMessageResponse> searchByEmail(String email, int page, int size, String sort, String type) {
 
         Pageable pageable= createPageableObject(page, size, sort, type);
-
         return contactMessageRepository.findByEmailEquals(email,pageable).map(this::createResponse);
 
     }
@@ -90,13 +82,9 @@ public class ContactMessageService {
     public Page<ContactMessageResponse> searchBySubject(String subject, int page, int size, String sort, String type) {
 
         Pageable pageable= createPageableObject(page, size, sort, type);
-
         return contactMessageRepository.findBySubjectEquals(subject,pageable).map(this::createResponse);
 
     }
-
-
-
 
 
     private Pageable createPageableObject(int page, int size, String sort, String type){
@@ -106,10 +94,8 @@ public class ContactMessageService {
         if(Objects.equals(type,"desc")){
             pageable=PageRequest.of(page,size, Sort.by(sort).descending());
         }
-
         return pageable;
     }
-
 
     public List<ContactMessage> getAllMessages() {
         return contactMessageRepository.findAll();

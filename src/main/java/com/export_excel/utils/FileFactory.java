@@ -13,18 +13,13 @@ import java.io.OutputStream;
 public class FileFactory {
 
     public static final String PATH_TEMPLATE = System.getProperty("user.home") + File.separator + "Downloads" + File.separator + "Template" + File.separator;
-  // public static final String PATH_TEMPLATE="C:\\Users\\iduman\\Downloads\\Template\\";   For write clean and more dynamically code we use other way.
+  // public static final String PATH_TEMPLATE="C:\\Users\\irfndmn\\Downloads\\Template\\";   For write clean and more dynamically code we use other way.
 
     public static File createFile(String fileName, Workbook workbook) throws Exception {
-
         workbook = new HSSFWorkbook();
-
         OutputStream out = new FileOutputStream(PATH_TEMPLATE+fileName);
-
         workbook.write(out);
-
         return ResourceUtils.getFile(PATH_TEMPLATE+fileName);
-
     }
 
 

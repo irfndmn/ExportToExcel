@@ -23,10 +23,8 @@ public class ExcelUtils {
     public static <T> ByteArrayInputStream exportContactMessage(List<T> theDataListForExport, String fileName) throws Exception {
 
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
-
         // Get file -> not found -> create file
         File file;
-
         FileInputStream fileInputStream;
 
         try {
@@ -38,18 +36,15 @@ public class ExcelUtils {
             fileInputStream = new FileInputStream(file);
         }
 
-
         // freeze pane
         XSSFSheet newSheet = xssfWorkbook.createSheet("sheet1");
         newSheet.createFreezePane(4, 2, 4, 2);
-
 
         // create title font
         XSSFFont titleFont = xssfWorkbook.createFont();
         titleFont.setFontName("Arial");
         titleFont.setBold(true);
         titleFont.setFontHeightInPoints((short) 13);
-
 
         //create style for cell of title
         XSSFCellStyle titleCellStyle = xssfWorkbook.createCellStyle();
@@ -63,14 +58,12 @@ public class ExcelUtils {
         titleCellStyle.setFont(titleFont);
         titleCellStyle.setWrapText(true);
 
-
         //font for data
 
         XSSFFont dataFont = xssfWorkbook.createFont();
         dataFont.setFontName("Arial");
         dataFont.setBold(false);
         dataFont.setFontHeightInPoints((short) 9);
-
 
         // create style for data
         XSSFCellStyle dataCellStyle = xssfWorkbook.createCellStyle();
@@ -82,7 +75,6 @@ public class ExcelUtils {
         dataCellStyle.setFont(dataFont);
         dataCellStyle.setWrapText(true);
 
-
         // insert field name as title to excel
 
         Class<?> clazz = theDataListForExport.get(0).getClass();
@@ -90,10 +82,8 @@ public class ExcelUtils {
 
         insertFieldNameAsTitleToWorkbook(newExportConfig.getCellExportConfigList(), newSheet, titleCellStyle);
 
-
         // insert data of the field to excel
         insertDataToWorkbook(xssfWorkbook, newExportConfig, theDataListForExport, dataCellStyle);
-
 
         //return
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -103,9 +93,7 @@ public class ExcelUtils {
 
         return new ByteArrayInputStream(outputStream.toByteArray());
 
-
     }
-
 
     private static <T> void insertDataToWorkbook(Workbook workbook,
                                                  ExportConfig exportConfig,
@@ -121,17 +109,13 @@ public class ExcelUtils {
         int currentRowIndex = startRowIndex;
 
         for (T data : dataList) {
-
             Row currentRow = sheet.getRow(currentRowIndex);
-
             if (ObjectUtils.isEmpty(currentRow)) {
                 currentRow = sheet.createRow(currentRowIndex);
             }
             // insert data to row
             insertDataToCell(data, currentRow, cellConfigs, clazz, sheet, dataCellStyle);
-
             currentRowIndex++;
-
         }
     }
 
@@ -169,13 +153,9 @@ public class ExcelUtils {
             if (ObjectUtils.isEmpty(currentCell)) {
                 currentCell = currentRow.createCell(cellConfig.getColumnIndex());
             }
-
             // get data for cell
-
             String cellValue = getCellValue(data, cellConfig, clazz);
-
             // set data
-
             currentCell.setCellValue(cellValue);
             sheet.autoSizeColumn(cellConfig.getColumnIndex());
             currentCell.setCellStyle(dataStyle);
@@ -209,7 +189,6 @@ public class ExcelUtils {
         if (ObjectUtils.isEmpty(clazz) || ObjectUtils.isEmpty(fieldName)) {
             return null;
         }
-
         do {
             try {
                 Field field = clazz.getDeclaredField(fieldName);
@@ -219,7 +198,6 @@ public class ExcelUtils {
                 log.info("" + e);
             }
         } while ((clazz = clazz.getSuperclass()) != null);  // if super class not null we check to super class too for field.
-
         return null;
     }
 

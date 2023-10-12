@@ -33,19 +33,12 @@ public class ExcelReportController {
 
     }
 
-    @GetMapping("/export")
-    public List<ContactMessage> exportData(HttpServletResponse response) {
-        Object dataService;
-        List<ContactMessage> data = null;
-        return data;
-    }
-
 
     @GetMapping("/exportContactMessage")
     public ResponseEntity<Resource> exportData() throws Exception {
-
         return excelReportService.exportContactMessage();
-
     }
+
+
 
 }
