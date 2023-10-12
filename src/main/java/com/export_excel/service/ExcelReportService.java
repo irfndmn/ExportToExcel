@@ -67,16 +67,12 @@ public class ExcelReportService {
 
     public ResponseEntity<Resource> exportContactMessage() throws Exception {
 
-
         List<ContactMessage> contactMessageList = contactMessageService.getAllMessages();
 
         if(!CollectionUtils.isEmpty(contactMessageList)){
 
-
                 String fileName = "Contact_Message_Export"+".xlsx";
-
                 ByteArrayInputStream in = ExcelUtils.exportContactMessage(contactMessageList,fileName);
-
                 InputStreamResource inputStreamResource = new InputStreamResource(in);
 
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
@@ -84,10 +80,7 @@ public class ExcelReportService {
                     contentType(MediaType.parseMediaType("application/vnd.ms-excel; charset=UTF-8")).body(inputStreamResource);
 
         }else {
-
             throw new Exception("No Data");
-
-
         }
 
     }

@@ -26,13 +26,9 @@ public class ExcelReportController {
     public void generateExcelReport(HttpServletResponse response) throws IOException {
 
         response.setContentType("application/octet-stream");
-
         String headerKey = "Content-Disposition";
         String headerValue = "attachment;filename = Contact_Messages.xls";
-
         response.setHeader(headerKey,headerValue);
-
-
         excelReportService.createExcel(response);
 
     }
@@ -51,6 +47,5 @@ public class ExcelReportController {
         return excelReportService.exportContactMessage();
 
     }
-
 
 }
