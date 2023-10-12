@@ -70,7 +70,7 @@ public class ExcelReportService {
 
         if(!CollectionUtils.isEmpty(contactMessageList)){
                 String fileName = "Contact_Message_Export"+".xlsx";
-                ByteArrayInputStream in = ExcelUtils.exportContactMessage(contactMessageList,fileName);
+                ByteArrayInputStream in = ExcelUtils.exportDataToExcel(contactMessageList,fileName);
                 InputStreamResource inputStreamResource = new InputStreamResource(in);
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                     "attachment; filename="+ URLEncoder.encode(fileName, StandardCharsets.UTF_8)).
@@ -78,6 +78,5 @@ public class ExcelReportService {
         }else {
             throw new Exception("No Data");
         }
-
     }
 }

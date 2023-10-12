@@ -20,7 +20,7 @@ import static com.export_excel.utils.FileFactory.PATH_TEMPLATE;
 @Slf4j
 public class ExcelUtils {
 
-    public static <T> ByteArrayInputStream exportContactMessage(List<T> theDataListForExport, String fileName) throws Exception {
+    public static <T> ByteArrayInputStream exportDataToExcel(List<T> theDataListForExport, String fileName) throws Exception {
 
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
         // Get file -> not found -> create file
@@ -36,9 +36,11 @@ public class ExcelUtils {
             fileInputStream = new FileInputStream(file);
         }
 
+        String sheetName = fileName.substring(0,fileName.lastIndexOf("_"));
+
         // freeze pane
-        XSSFSheet newSheet = xssfWorkbook.createSheet("sheet1");
-        newSheet.createFreezePane(4, 2, 4, 2);
+        XSSFSheet newSheet = xssfWorkbook.createSheet(sheetName);
+        newSheet.createFreezePane(3, 2, 3, 2);
 
         // create title font
         XSSFFont titleFont = xssfWorkbook.createFont();
@@ -68,6 +70,8 @@ public class ExcelUtils {
         // create style for data
         XSSFCellStyle dataCellStyle = xssfWorkbook.createCellStyle();
         dataCellStyle.setAlignment(HorizontalAlignment.CENTER);
+        dataCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        dataCellStyle.setFillForegroundColor(IndexedColors.LIGHT_GREEN.index);
         dataCellStyle.setBorderBottom(BorderStyle.THIN);
         dataCellStyle.setBorderLeft(BorderStyle.THIN);
         dataCellStyle.setBorderRight(BorderStyle.THIN);
@@ -87,9 +91,12 @@ public class ExcelUtils {
 
         //return
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        FileOutputStream fileOutputStream =new FileOutputStream(file);
         xssfWorkbook.write(outputStream);
+        xssfWorkbook.write(fileOutputStream);
         outputStream.close();
         fileInputStream.close();
+        fileOutputStream.close();
 
         return new ByteArrayInputStream(outputStream.toByteArray());
 
@@ -123,7 +130,6 @@ public class ExcelUtils {
     private static void insertFieldNameAsTitleToWorkbook(List<CellConfig> cellConfigs,
                                                          Sheet sheet,
                                                          XSSFCellStyle titleCellStyle) {
-
         // title -> first row of  excel
         int currentRow = sheet.getTopRow();
         // create row
@@ -138,7 +144,6 @@ public class ExcelUtils {
             sheet.autoSizeColumn(i);
             i++;
         }
-
 
     }
 
@@ -161,8 +166,6 @@ public class ExcelUtils {
             currentCell.setCellStyle(dataStyle);
 
         }
-
-
     }
 
     private static <T> String getCellValue(T data, CellConfig cellConfig, Class clazz) {

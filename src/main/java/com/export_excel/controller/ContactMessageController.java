@@ -27,7 +27,6 @@ public class ContactMessageController {
     }
 
 
-
     @GetMapping("/getAll")
     public Page<ContactMessageResponse> getAll(
             @RequestParam(value = "page", defaultValue = "0") int page,
