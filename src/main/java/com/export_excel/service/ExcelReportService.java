@@ -79,4 +79,15 @@ public class ExcelReportService {
             throw new Exception("No Data");
         }
     }
+
+
+
+    public void exportData() throws Exception {
+        List<ContactMessage> contactMessageList = contactMessageService.getAllMessages();
+        if (!CollectionUtils.isEmpty(contactMessageList)) {
+            String fileName = "Contact_Message_Export" + ".xlsx";
+           ExcelUtils.exportDataToExcel(contactMessageList, fileName);
+        }
+    }
+
 }

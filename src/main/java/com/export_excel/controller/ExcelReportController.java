@@ -34,4 +34,8 @@ public class ExcelReportController {
         return excelReportService.exportContactMessage();
     }
 
+    @GetMapping("/contactMessage")
+    public void exportDat() throws Exception {
+        excelReportService.exportData();
+    }
 }
