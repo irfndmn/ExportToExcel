@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/contactMessages")
+@RequestMapping("api/contactMessages")
 @RequiredArgsConstructor
 public class ContactMessageController {
 
@@ -25,7 +25,6 @@ public class ContactMessageController {
         return contactMessageService.save(contactMessageRequest);
 
     }
-
 
     @GetMapping("/getAll")
     public Page<ContactMessageResponse> getAll(
@@ -49,7 +48,6 @@ public class ContactMessageController {
     ) {
         return contactMessageService.searchByEmail(email, page, size, sort, type);
     }
-
 
     @GetMapping("/searchBySubject")
     public Page<ContactMessageResponse> searchBySubject(

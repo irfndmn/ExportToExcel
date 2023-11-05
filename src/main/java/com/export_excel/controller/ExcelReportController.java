@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/export")
+@RequestMapping("api/export")
 public class ExcelReportController {
     private final ExcelReportService excelReportService;
 
@@ -28,14 +28,13 @@ public class ExcelReportController {
 
     }
 
-
     @GetMapping("/exportContactMessage")
     public ResponseEntity<Resource> exportData() throws Exception {
         return excelReportService.exportContactMessage();
     }
 
     @GetMapping("/contactMessage")
-    public void exportDat() throws Exception {
+    public void exportContact() throws Exception {
         excelReportService.exportData();
     }
 }
