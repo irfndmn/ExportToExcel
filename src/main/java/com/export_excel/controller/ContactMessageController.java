@@ -36,7 +36,6 @@ public class ContactMessageController {
         return contactMessageService.getAll(page, size, sort, type);
     }
 
-
     @GetMapping("/searchByEmail")
     public Page<ContactMessageResponse> searchByEmail(
             @RequestParam(value = "email") String email,

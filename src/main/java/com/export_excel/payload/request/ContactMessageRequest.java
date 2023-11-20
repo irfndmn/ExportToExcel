@@ -37,6 +37,4 @@ public class ContactMessageRequest implements Serializable {
     @Pattern(regexp = "\\A(?!\\s*\\Z).+",message = "Your message must consist of the character .")
     private String message;
 
-
 }
-
